@@ -1,3 +1,9 @@
+use adventofcode2021::*;
+
 fn main() {
-    println!("Hello, world!");
+    println!("Welcome! Advent of Code 2021");
+
+    let depths: Vec<u32> = input_utils::read_all_as("inputs/day1.input");
+    println!("Day 1 - Part 1: {}", day1::part1(depths.clone()));
+    println!("Day 1 - Part 2: {}", day1::part2(depths));
 }
