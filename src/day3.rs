@@ -34,6 +34,98 @@ pub fn part1(input: Vec<String>) -> u32 {
     gamma_rate * epsilon_rate
 }
 
+pub fn part2(input: Vec<String>) -> u32 {
+    /*
+        To find oxygen generator rating, determine the most common value (0 or 1) in the current
+        bit position, and keep only numbers with that bit in that position. If 0 and 1 are equally common,
+        keep values with a 1 in the position being considered.
+        To find CO2 scrubber rating, determine the least common value (0 or 1) in the current bit position,
+        and keep only numbers with that bit in that position. If 0 and 1 are equally common, keep values
+        with a 0 in the position being considered.
+    */
+    let mut potential_o2_rating = input.clone();
+
+    let mut index = 0;
+
+    loop {
+        if potential_o2_rating.len() == 1 {
+            break;
+        }
+
+        let mut byte_list = vec![
+            ByteValue {
+                num_ones: 0,
+                num_zeros: 0
+            };
+            input[0].len()
+        ];
+
+        potential_o2_rating.iter().for_each(|bytes| {
+            for (index, c) in bytes.chars().enumerate() {
+                let mut value = byte_list[index];
+                value.saw(c);
+                byte_list[index] = value;
+            }
+        });
+
+        // get common of location
+        let common = byte_list[index].get_most_common();
+
+        potential_o2_rating = potential_o2_rating
+            .iter()
+            .filter(|s| s.chars().nth(index).unwrap().to_string() == common)
+            .map(|s| String::from(s))
+            .collect();
+
+        index += 1;
+    }
+
+    let mut potential_co2_scrubber_rating = input.clone();
+
+    let mut index = 0;
+
+    loop {
+        if potential_co2_scrubber_rating.len() == 1 {
+            break;
+        }
+
+        let mut byte_list = vec![
+            ByteValue {
+                num_ones: 0,
+                num_zeros: 0
+            };
+            input[0].len()
+        ];
+
+        potential_co2_scrubber_rating.iter().for_each(|bytes| {
+            for (index, c) in bytes.chars().enumerate() {
+                let mut value = byte_list[index];
+                value.saw(c);
+                byte_list[index] = value;
+            }
+        });
+
+        // get common of location
+        let common = byte_list[index].get_least_common();
+
+        potential_co2_scrubber_rating = potential_co2_scrubber_rating
+            .iter()
+            .filter(|s| s.chars().nth(index).unwrap().to_string() == common)
+            .map(|s| String::from(s))
+            .collect();
+
+        index += 1;
+    }
+
+    // println!("Found {:?}", potential_o2_rating);
+    // println!("Found {:?}", potential_co2_scrubber_rating);
+
+    let o2_rating = convert_to_decimal(potential_o2_rating[0].clone());
+    let co2_scrubber_rating = convert_to_decimal(potential_co2_scrubber_rating[0].clone());
+
+    o2_rating * co2_scrubber_rating
+}
+
 fn convert_to_decimal(bit_str: String) -> u32 {
     let mut result = 0;
     let base: u32 = 2;
@@ -81,7 +173,7 @@ impl ByteValue {
 
 #[cfg(test)]
 mod tests {
-    use super::part1;
+    use super::{part1, part2};
 
     #[test]
     fn test_part1() {
@@ -104,5 +196,28 @@ mod tests {
         let result = part1(input);
 
         assert_eq!(result, 198)
+    }
+
+    #[test]
+    fn test_part2() {
+        let input = "00100
+11110
+10110
+10111
+10101
+01111
+00111
+11100
+10000
+11001
+00010
+01010"
+            .lines()
+            .map(|s| String::from(s))
+            .collect();
+
+        let result = part2(input);
+
+        assert_eq!(result, 230)
     }
 }
