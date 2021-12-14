@@ -17,5 +17,5 @@ fn main() {
 
     let input: Vec<String> = input_utils::read_all_as("inputs/day4.input");
     println!("Day 4 - Part 1: {}", day4::part1(input.clone()));
-    // println!("Day 3 - Part 2: {}", day3::part2(input));
+    println!("Day 4 - Part 2: {}", day4::part2(input));
 }

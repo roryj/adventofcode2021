@@ -1,4 +1,7 @@
-use std::fmt::{Debug, Display};
+use std::{
+    collections::HashSet,
+    fmt::{Debug, Display},
+};
 
 pub fn part1(input: Vec<String>) -> u32 {
     let mut input_iter = input.iter();
@@ -44,7 +47,63 @@ pub fn part1(input: Vec<String>) -> u32 {
     panic!("We should not have hit here")
 }
 
-#[derive(Debug, Clone)]
+pub fn part2(input: Vec<String>) -> u32 {
+    let mut input_iter = input.iter();
+
+    // the first line is the numbers
+    let number_order: Vec<u32> = input_iter
+        .next()
+        .unwrap()
+        .split(",")
+        .map(|i| i.parse::<u32>().unwrap())
+        .collect();
+    input_iter.next();
+
+    let mut bingo_cards: Vec<BingoCard> = vec![];
+    let mut curr_input: Vec<String> = vec![];
+
+    for line in input_iter {
+        if line.is_empty() {
+            let card = BingoCard::new(curr_input);
+            bingo_cards.push(card);
+            curr_input = vec![];
+            continue;
+        }
+
+        curr_input.push(line.to_string());
+    }
+
+    for p in number_order.iter() {
+        let before_count = bingo_cards.len();
+        let non_winning_bingo_cards: Vec<BingoCard> = bingo_cards
+            .iter_mut()
+            .filter_map(|card| {
+                card.mark_selected(*p);
+                match card.is_winner() {
+                    true => None,
+                    false => Some(card.to_owned()),
+                }
+            })
+            .collect();
+
+        println!(
+            "Before: {}, After: {}",
+            before_count,
+            non_winning_bingo_cards.len()
+        );
+
+        if bingo_cards.len() == 1 && non_winning_bingo_cards.is_empty() {
+            println!("Last bingo: {}", bingo_cards[0]);
+            return bingo_cards[0].calculate_score(*p);
+        }
+
+        bingo_cards = non_winning_bingo_cards;
+    }
+
+    panic!("We should not have hit here")
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 struct BingoCard {
     squares: Vec<Vec<(u32, bool)>>,
 }
