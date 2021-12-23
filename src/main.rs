@@ -22,4 +22,13 @@ fn main() {
     let input: Vec<String> = input_utils::read_all_as("inputs/day5.input");
     println!("Day 5 - Part 1: {}", day5::part1(input.clone()));
     println!("Day 5 - Part 2: {}", day5::part2(input));
+
+    let input: Vec<u8> = input_utils::read_all("inputs/day6.input")
+        .first()
+        .unwrap()
+        .split(",")
+        .map(|d| d.parse::<u8>().unwrap())
+        .collect();
+    println!("Day 6 - Part 1: {}", day6::part1(input.clone(), 80));
+    println!("Day 6 - Part 2: {}", day6::part2(input));
 }

@@ -173,8 +173,6 @@ fn add_to_grid(mut grid: Vec<Vec<u32>>, x1: u32, y1: u32, x2: u32, y2: u32) -> V
         for x in min_x..(max_x + 1) {
             grid[y1 as usize][x as usize] += 1;
         }
-    } else {
-        println!("both x and y are different. Skipping");
     }
     // println!("after grid");
     // print_grid(&grid);
