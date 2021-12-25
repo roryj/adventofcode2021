@@ -40,5 +40,6 @@ fn main() {
         .collect();
 
     println!("Day 7 - Part 1: {}", day7::part1(input.clone()));
-    // println!("Day 6 - Part 2: {}", day6::part2(input));
+    // commented out because slow
+    // println!("Day 7 - Part 2: {}", day7::part2(input));
 }

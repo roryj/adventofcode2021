@@ -114,7 +114,7 @@ pub fn part2(input: Vec<u8>) -> u64 {
 
 #[cfg(test)]
 mod tests {
-    use super::part1;
+    use super::{part1, part2};
 
     #[test]
     fn test_part1() {
@@ -147,7 +147,7 @@ mod tests {
             .map(|s| s.parse::<u8>().unwrap())
             .collect();
 
-        let result = part1(input, 256);
+        let result = part2(input);
 
         assert_eq!(result, 26984457539);
     }
