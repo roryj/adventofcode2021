@@ -31,4 +31,14 @@ fn main() {
         .collect();
     println!("Day 6 - Part 1: {}", day6::part1(input.clone(), 80));
     println!("Day 6 - Part 2: {}", day6::part2(input));
+
+    let input: Vec<u32> = input_utils::read_all("inputs/day7.input")
+        .first()
+        .unwrap()
+        .split(",")
+        .map(|d| d.parse::<u32>().unwrap())
+        .collect();
+
+    println!("Day 7 - Part 1: {}", day7::part1(input.clone()));
+    // println!("Day 6 - Part 2: {}", day6::part2(input));
 }
