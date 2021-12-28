@@ -42,4 +42,8 @@ fn main() {
     println!("Day 7 - Part 1: {}", day7::part1(input.clone()));
     // commented out because slow
     // println!("Day 7 - Part 2: {}", day7::part2(input));
+    //
+    let input: Vec<String> = input_utils::read_all_as("inputs/day8.input");
+    println!("Day 8 - Part 1: {}", day8::part1(input.clone()));
+    println!("Day 8 - Part 2: {}", day8::part2(input));
 }
