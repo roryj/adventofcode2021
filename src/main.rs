@@ -50,4 +50,8 @@ fn main() {
     let input: Vec<String> = input_utils::read_all_as("inputs/day9.input");
     println!("Day 9 - Part 1: {}", day9::part1(input.clone()));
     println!("Day 9 - Part 2: {}", day9::part2(input));
+
+    let input: Vec<String> = input_utils::read_all_as("inputs/day10.input");
+    println!("Day 10 - Part 1: {}", day10::part1(input.clone()));
+    // println!("Day 9 - Part 2: {}", day9::part2(input));
 }
