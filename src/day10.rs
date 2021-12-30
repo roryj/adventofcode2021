@@ -1,17 +1,4 @@
-enum Delimeter {
-    ParenOpen,
-    ParenClose,
-
-    SquareOpen,
-    SquareClose,
-
-    BracketOpen,
-}
-
 pub fn part1(input: Vec<String>) -> u32 {
-    // stack
-    //
-
     let result = input
         .iter()
         .map(|row| {
@@ -46,21 +33,6 @@ pub fn part1(input: Vec<String>) -> u32 {
                 if let Some(r) = error_result {
                     return r;
                 }
-
-                // match c {
-                //     '<' => {
-                //         stack.push('<');
-                //     }
-                //     '{' => {
-                //         stack.push('{');
-                //     }
-                //     '(' => {
-                //         stack.push('(');
-                //     }
-                //     '[' => {
-                //         stack.push('<');
-                //     }
-                // }
             }
             0
         })
